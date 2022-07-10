@@ -13,28 +13,29 @@ void ReleaseList();
 /////////////////////////////////////////////////////////////////////////
 typedef struct _USERDATA
 {
-	char szName[32];	  // 이름
+	char szName[32];	  // 이름- hungarian, sz stands for string terminated zero
 	char szPhone[32];	  // 전화번호
 
-	struct _USERDATA *pNext;
+	struct _USERDATA *pNext; //만들 때 부터 NULL로 초기화 시키진 않구나. 약간 연역법 식으로 minimal하게 가는건가?
 } USERDATA;
 
 // 더미 헤드 노드 선언 및 정의
-USERDATA g_Head = { 0 };
+USERDATA g_Head = { 0 }; //global head
 
 
 //입력 초기화
 void flush_stdin() {
-	while (getchar() != '\n');
+	while (getchar() != '\n'); //getchar()은 버퍼에 data 꺼내서 char단위로 보여줌 
 }
 
 /////////////////////////////////////////////////////////////////////////
 // 리스트에서 이름으로 특정 노드를 검색하는 함수
-USERDATA *FindNode(char *pszName)
+// return type이 USERDATA면, 함수 이름 앞에 *이 붙나 보네?
+USERDATA *FindNode(char *pszName) // psz == NULL로 끝나는 문자열을 가리키는 포인터(16bit, 32bit). p = pointer, sz = string terminated zero = NULL로 끝나는 문자열
 {
 	USERDATA *pTmp = g_Head.pNext;
 	while (pTmp != NULL) {
-		if (strcmp(pTmp->szName, pszName) == 0)
+		if (strcmp(pTmp->szName, pszName) == 0) //같으면 결과값이 0인가 보네? 
 			return pTmp;
 
 		// 다음 노드로 이동
@@ -55,7 +56,7 @@ int AddNewNode(char *pszName, char *pszPhone)
 		return 0;
 
 	// 메모리를 확보한다.
-	pNewUser = (USERDATA*)malloc(sizeof(USERDATA));
+	pNewUser = (USERDATA*)malloc(sizeof(USERDATA)); //동적할당으로 사이즈 확보해도, 형변환을 해줘야 하는구나. security issue 때문인가? 혹여나 accidentally 다른 type이 덮어쓰면 안되니까?
 	memset(pNewUser, 0, sizeof(USERDATA));
 
 	// 메모리에 값을 저장한다.
@@ -174,7 +175,7 @@ int PrintUI()
 {
 	int nInput = 0;
 
-	system("cls");
+	system("cls"); // clean screen on cmd
 	printf("[1] Add\t [2] Search\t [3] Print all\t [4] Remove\t [0] Exit\n:");
 
 	// 사용자가 선택한 메뉴의 값을 반환한다.

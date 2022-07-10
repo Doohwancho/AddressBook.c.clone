@@ -1,5 +1,5 @@
 
-# A. Prediction
+# . Prediction
 
 
 ## a. general idea
@@ -117,9 +117,57 @@ Q. c에서 break 하는 함수뭐쓰지
 
 ## a. correct wrongly predicted
 
+1. linked list만들 때, head 없고 next만 있음. 
+Singly LinkedList 정석 구현 찾아보면,
+LinkedList 라는 클래스 안에 Node라는 sub class만들고,
+Node안에 data, next;있음
+
+LinkedList class안에는 Node head, tail 있는 식.
+
+2. add();에서 보면,
+Node 객체 new로 만들어서 넣어야 하는 부분 빼먹음
+또한 정석 구현에서, head, tail이 있으니까, 굳이 내가 구현한 것 처럼, while문으로 끝까지 안가도, 바로 tail.next = node 해서 붙일 수 있음.
+
+
+
+
 
 ## b. things I couldnt find
 
+코드에 주석달아놓음.
+
+그 외에 눈여길 점은, UI와 database의 분리임.
+
+
+### 1. UI
+
+flush\_stdin();
+PrintUI();
+
+
+
+### 2. database 
+
+
+File 관련
+
+DATA\_FILE\_NAME
+LoadList();
+SaveList();
+ReleaseList();
+
+
+
+Database 관련
+
+\_USERDATA
+\*FindNode();
+AddNewNode();
+Add();
+Search();
+PrintAll();
+RemoveNode();
+Remove();
 
 
 
